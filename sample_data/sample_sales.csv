@@ -1,0 +1,121 @@
+order_id,order_date,customer_name,city,region,product_category,product_name,quantity,unit_price,total_sales,discount_pct,profit,sales_rep,payment_mode
+10001,23/11/2024,Rajesh Kumar,pune,South,Clothing,Jeans,48,602.23,28907.04,16.36,4835.57,Arjun,UPI
+10002,16/01/2024,Priya Singh,DELHI,North,Books,Text Book,46,3284.43,151083.78,6.61,28219.43,Vikram,UPI
+10003,23/01/2025,Divya Nair,chennai,East,Clothing,Jeans,49,1749.31,"85,716",2.9,16646.05,Sneha,NetBanking
+10004,15/05/2024,Divya Nair,CHENNAI,North,Furniture,Chair,36,1536.57,55316.52,26.56,8124.89,Sneha,NetBanking
+10005,2024-04-08,Rajesh Kumar,MUMBAI,South,Groceries,Rice,15,4345.77,65186.55,13.6,11264.24,Sneha,Credit Card
+10006,07-08-2024,Priya Singh,pune,North,Books,Text Book,35,3672.72,128545.2,11.38,22783.35,Neha,Debit Card
+10007,28/01/2025,Priya Singh,mumbai,West,Groceries,Rice,14,4574.37,64041.18,21.54,10049.34,Neha,Cash
+10008,2024-07-21,Neha Sharma,delhi,South,Clothing,Jacket,35,1387.43,48560.05,26.93,7096.57,Arjun,Debit Card
+10009,22/04/2024,Vikram Reddy,Chennai,North,Electronics,Phone,41,883.91,36240.31,17.89,5951.38,Arjun,Cash
+10010,11-01-2024,Vikram Reddy,BANGALORE,North,Electronics,Camera,49,1407.44,68964.56,3.35,13330.85,Arjun,Credit Card
+10011,20/08/2024,Divya Nair,pune,South,Books,Novel,41,1562.38,64057.58,18.27,10470.85,Amit,Debit Card
+10012,25/01/2025,Vikram Reddy,Hyderabad,East,Furniture,Chair,8,4652.58,37220.64,24.95,5586.82,Vikram,Credit Card
+10013,30/01/2024,Vikram Reddy,Mumbai,West,Electronics,Camera,50,716.23,35811.5,28.41,5127.49,Amit,Debit Card
+10014,2024-09-27,Neha Sharma,DELHI,South,Groceries,Sugar,43,3284.4,141229.2,15.53,23859.26,Priya,Credit Card
+10015,25/04/2024,Amit Patel,MUMBAI,South,Books,Text Book,1,447.87,447.87,6.87,83.42,Rajesh,Debit Card
+10016,2024-02-06,Priya Singh,BANGALORE,West,Clothing,Jacket,9,3644.43,32799.869999999995,17.29,5425.75,Neha,Cash
+10017,27/07/2024,Rajesh Kumar,MUMBAI,West,Groceries,Sugar,27,2388.42,64487.340000000004,20.2,10292.18,Priya,UPI
+10018,2024-07-25,Amit Patel,Mumbai,South,Clothing,Jacket,29,786.89,22819.81,13.88,3930.48,Priya,Cash
+10019,08/10/2024,Rajesh Kumar,PUNE,North,Electronics,Phone,11,2091.43,23005.73,25.94,3407.61,Rajesh,Credit Card
+10020,13/07/2024,Neha Sharma,bangalore,East,Furniture,Shelf,43,3620.2,155668.6,8.9,28362.82,Rajesh,NetBanking
+10021,2025-01-11,Rajesh Kumar,pune,North,Electronics,Camera,31,2563.97,79483.06999999999,4.72,15146.29,Priya,Credit Card
+10022,2024-02-05,Rajesh Kumar,Pune,West,Electronics,Camera,16,2936.7,"46,987",2.46,9166.22,Sneha,Debit Card
+10023,2024-04-14,Divya Nair,Bangalore,East,Furniture,Table,43,3262.95,140306.85,27.87,20240.67,Priya,UPI
+10024,2024-08-22,Vikram Reddy,Mumbai,South,Books,Comic,9,4672.97,42056.73,26.38,6192.43,Sneha,Debit Card
+10025,03-21-2024,Arjun Verma,HYDERABAD,East,Books,Self Help,1,3372.53,3372.53,27.95,485.98,Priya,Credit Card
+10026,15/05/2024,Rajesh Kumar,PUNE,South,Groceries,Oil,39,1132.09,44151.509999999995,20.62,7009.49,Vikram,NetBanking
+10027,09-07-2024,Arjun Verma,Mumbai,West,Groceries,Rice,1,1734.43,"1,734",29.39,244.88,Amit,Cash
+10028,2024-10-09,Neha Sharma,Hyderabad,North,Electronics,Phone,35,276.54,9678.900000000001,16.58,1614.83,Arjun,Credit Card
+10029,01-22-2024,Amit Patel,mumbai,South,Clothing,T-Shirt,23,3922.57,90219.11,12.19,15844.28,Amit,Credit Card
+10030,24/03/2024,Neha Sharma,Mumbai,East,Furniture,Table,18,880.07,15841.26,11.48,2804.54,Rajesh,Cash
+10031,23/04/2024,Arjun Verma,chennai,East,Clothing,Jeans,2,3334.16,6668.32,8.36,1222.17,Priya,Debit Card
+10032,2024-06-28,Vikram Reddy,CHENNAI,East,Electronics,Laptop,17,974.98,16574.66,7.96,3051.06,Priya,NetBanking
+10033,08-10-2024,Divya Nair,bangalore,North,Furniture,Shelf,13,1348.14,17525.82,0.05,3503.41,Neha,Debit Card
+10034,08/08/2024,Divya Nair,BANGALORE,East,Electronics,Headphones,33,1615.49,53311.17,12.07,9375.3,Vikram,NetBanking
+10035,06/03/2024,Neha Sharma,pune,South,Books,Self Help,20,2089.77,41795.4,9.12,7596.73,Neha,Cash
+10036,2024-10-23,Divya Nair,bangalore,West,Furniture,Table,33,2418.61,79814.13,23.88,12150.9,Amit,UPI
+10037,2024-05-25,Divya Nair,PUNE,East,Electronics,Phone,44,1621.06,71326.64,4.42,13634.8,Rajesh,Credit Card
+10038,2024-08-31,Arjun Verma,mumbai,West,Books,Text Book,46,3512.14,161558.44,7.32,29946.47,Rajesh,UPI
+10039,05/08/2024,Priya Singh,PUNE,West,Electronics,Camera,16,4595.6,"73,529",4.0,14117.57,Divya,NetBanking
+10040,2024-10-13,Amit Patel,CHENNAI,West,Books,Biography,11,3743.91,41183.009999999995,7.78,7595.79,Neha,Debit Card
+10041,2025-01-27,Neha Sharma,Pune,East,Furniture,Chair,46,1500.07,69003.22,9.59,12477.16,Priya,Credit Card
+10042,18/03/2024,Neha Sharma,Pune,South,Electronics,Tablet,27,1721.32,46475.64,1.87,9121.31,Arjun,Cash
+10043,2025-01-29,Divya Nair,MUMBAI,West,Furniture,Chair,23,1563.2,35953.6,26.75,5267.2,Arjun,NetBanking
+10044,2025-01-17,Vikram Reddy,Hyderabad,West,Clothing,Saree,28,2479.65,69430.2,20.07,11099.11,Arjun,Credit Card
+10045,27/08/2024,Vikram Reddy,Hyderabad,West,Books,Self Help,43,232.8,10010.4,4.07,1920.6,Divya,Credit Card
+10046,01-26-2024,Neha Sharma,Bangalore,West,Groceries,Oil,49,4410.24,216101.75999999998,28.54,30885.26,Arjun,Debit Card
+10047,02-11-2024,Rajesh Kumar,PUNE,North,Groceries,Dal,42,436.23,18321.66,1.21,3619.99,Rajesh,Credit Card
+10048,12/04/2024,Vikram Reddy,Delhi,South,Furniture,Chair,37,4744.01,175528.37,7.69,32406.05,Sneha,Credit Card
+10049,2024-11-06,Divya Nair,Pune,South,Groceries,Rice,38,225.82,8581.16,20.32,1367.49,Arjun,Cash
+10050,01/01/2025,Rajesh Kumar,HYDERABAD,South,Electronics,Headphones,44,3042.02,"133,848",29.52,18867.21,Rajesh,Debit Card
+10051,09-29-2024,Divya Nair,Bangalore,East,Electronics,Tablet,32,617.14,19748.48,19.07,3196.49,Divya,Credit Card
+10052,10/08/2024,Divya Nair,HYDERABAD,East,Books,Self Help,50,2469.14,123457.0,21.93,19276.58,Vikram,Debit Card
+10053,05/05/2024,Amit Patel,Chennai,West,Books,Self Help,43,1957.05,"84,153",25.53,12533.75,Amit,Cash
+10054,04-18-2024,Arjun Verma,bangalore,East,Books,Comic,36,149.74,5390.64,2.57,1050.42,Arjun,Cash
+10055,11/10/2024,Divya Nair,CHENNAI,West,Furniture,Chair,6,1541.75,9250.5,7.3,1715.04,Sneha,Cash
+10056,2024-10-10,Amit Patel,CHENNAI,East,Groceries,Sugar,18,1602.45,28844.100000000002,21.64,4520.45,Sneha,UPI
+10057,2025-01-15,Arjun Verma,Pune,South,Clothing,Kurta,18,3650.47,65708.45999999999,15.74,11073.19,Vikram,UPI
+10058,04-09-2024,Priya Singh,Bangalore,East,Electronics,Camera,9,1444.13,12997.170000000002,16.6,2167.93,Amit,Cash
+10059,22/02/2024,Vikram Reddy,bangalore,West,Furniture,Bed,12,4830.94,57971.28,25.85,8597.14,Priya,UPI
+10060,07-24-2024,Rajesh Kumar,HYDERABAD,North,Clothing,Jeans,37,4750.72,"175,776",7.45,32536.14,Arjun,NetBanking
+10061,2024-11-01,Priya Singh,hyderabad,West,Furniture,Bed,38,4951.15,188143.69999999998,18.63,30618.51,Priya,Credit Card
+10062,16/11/2024,Amit Patel,Pune,South,Clothing,Jeans,36,467.82,"16,841",13.52,2912.82,Divya,Debit Card
+10063,17/01/2024,Amit Patel,pune,West,Electronics,Phone,17,3960.36,67326.12,19.84,10793.72,Neha,Cash
+10064,2024-02-28,Priya Singh,Pune,East,Clothing,T-Shirt,4,913.02,3652.08,22.47,566.29,Vikram,Cash
+10065,03-04-2024,Divya Nair,BANGALORE,West,Groceries,Flour,35,2519.6,"88,186",1.2,17425.55,Arjun,Debit Card
+10066,11-05-2024,Rajesh Kumar,Mumbai,North,Groceries,Flour,3,3839.23,11517.69,15.57,1944.88,Divya,Debit Card
+10067,2024-04-02,Neha Sharma,pune,North,Furniture,Bed,27,1733.21,46796.67,25.73,6951.18,Sneha,Cash
+10068,12-21-2024,Amit Patel,pune,North,Furniture,Chair,21,1336.75,"28,071",23.18,4312.83,Rajesh,NetBanking
+10069,08-24-2024,Rajesh Kumar,DELHI,East,Books,Biography,41,2266.0,"92,906",8.01,17092.85,Amit,Debit Card
+10070,2024-08-12,Neha Sharma,Mumbai,South,Clothing,Saree,36,167.0,6012.0,6.74,1121.36,Priya,Cash
+10071,2024-03-01,Arjun Verma,delhi,East,Books,Comic,27,4190.15,113134.04999999999,7.31,20972.79,Amit,Cash
+10072,2024-04-07,Vikram Reddy,Pune,North,Groceries,Sugar,22,4677.82,102912.04,24.62,15515.02,Vikram,Debit Card
+10073,2024-10-27,Divya Nair,Chennai,West,Books,Biography,23,1728.96,39766.08,11.32,7052.91,Sneha,Credit Card
+10074,23/12/2024,Vikram Reddy,Chennai,West,Electronics,Headphones,48,2417.58,116043.84,11.44,20553.68,Amit,Cash
+10075,19/01/2024,Vikram Reddy,hyderabad,North,Furniture,Chair,34,4561.16,"155,079",4.32,29675.92,Amit,UPI
+10076,08-28-2024,Amit Patel,HYDERABAD,West,Electronics,Headphones,44,4310.78,189674.31999999998,9.5,34331.05,Divya,NetBanking
+10077,2024-01-19,Rajesh Kumar,DELHI,East,Clothing,T-Shirt,28,4893.85,137027.80000000002,21.12,21617.51,Priya,Cash
+10078,2024-03-26,Amit Patel,Mumbai,East,Electronics,Headphones,23,1936.72,"44,544",15.93,7489.63,Amit,Credit Card
+10079,30/03/2024,Vikram Reddy,CHENNAI,South,Furniture,Shelf,10,1237.72,12377.2,13.79,2134.08,Rajesh,Cash
+10080,2024-05-27,Vikram Reddy,Delhi,West,Groceries,Flour,20,3230.8,64616.0,7.5,11953.96,Vikram,Credit Card
+10081,07-15-2024,Rajesh Kumar,delhi,East,Books,Comic,45,1546.63,69598.35,19.75,11170.54,Vikram,UPI
+10082,2024-10-16,Arjun Verma,Pune,West,Groceries,Dal,39,4029.47,157149.33,5.7,29638.36,Vikram,Credit Card
+10083,17/11/2024,Divya Nair,Pune,East,Furniture,Chair,38,1887.82,"71,737",27.29,10431.99,Sneha,Cash
+10084,30/03/2024,Priya Singh,hyderabad,East,Clothing,Saree,31,4840.18,150045.58000000002,26.11,22173.74,Priya,Cash
+10085,08/02/2024,Arjun Verma,DELHI,West,Books,Comic,6,3974.34,"23,846",16.1,4001.36,Divya,Debit Card
+10086,2024-12-10,Divya Nair,BANGALORE,West,Groceries,Rice,44,1245.73,"54,812",26.53,8054.08,Sneha,NetBanking
+10087,2024-04-23,Rajesh Kumar,pune,East,Furniture,Chair,9,322.2,"2,899",29.88,406.56,Priya,UPI
+10088,2024-04-30,Priya Singh,chennai,East,Books,Biography,38,3737.12,142010.56,12.45,24866.05,Priya,Cash
+10089,11-11-2024,Amit Patel,MUMBAI,East,Clothing,Kurta,29,4757.72,137973.88,2.98,26772.45,Sneha,NetBanking
+10090,11-26-2024,Rajesh Kumar,chennai,South,Electronics,Tablet,6,3347.57,20085.420000000002,17.91,3297.62,Rajesh,UPI
+10091,19/06/2024,Priya Singh,Hyderabad,North,Books,Text Book,38,1158.16,44010.08,9.86,7934.14,Amit,NetBanking
+10092,01-02-2024,Arjun Verma,Delhi,East,Clothing,T-Shirt,43,4345.59,"186,860",10.75,33354.51,Neha,NetBanking
+10093,14/06/2024,Priya Singh,Bangalore,South,Furniture,Shelf,8,3753.76,30030.08,23.34,4604.21,Priya,Cash
+10094,14/09/2024,Vikram Reddy,MUMBAI,East,Furniture,Chair,4,4993.08,19972.32,12.79,3483.57,Priya,Cash
+10095,12-30-2024,Rajesh Kumar,mumbai,South,Electronics,Phone,18,3159.16,56864.88,21.36,8943.71,Arjun,NetBanking
+10096,09-28-2024,Neha Sharma,HYDERABAD,West,Electronics,Laptop,42,3289.49,138158.58,21.63,21654.98,Neha,Cash
+10097,19/08/2024,Neha Sharma,bangalore,West,Furniture,Chair,21,2191.14,46013.939999999995,11.23,8169.31,Amit,Cash
+10098,04/02/2024,Arjun Verma,Mumbai,West,Electronics,Headphones,9,2826.22,25435.98,16.85,4230.0,Sneha,UPI
+10099,07-29-2024,Arjun Verma,pune,North,Groceries,Flour,20,1823.07,36461.4,6.38,6827.03,Divya,Credit Card
+10100,02-25-2024,Arjun Verma,hyderabad,North,Groceries,Flour,15,4055.38,60830.700000000004,29.24,8608.76,Rajesh,NetBanking
+10101,2024-12-02,Amit Patel,Mumbai,East,Groceries,Oil,23,129.92,,26.1,,Arjun,UPI
+10102,2024-03-13,Divya Nair,Mumbai,South,Furniture,Sofa,30,1770.39,,11.1,,Sneha,NetBanking
+10103,01/11/2024,Rajesh Kumar,Delhi,North,Electronics,Headphones,29,3343.5,,14.57,,Divya,Cash
+10104,19/05/2024,Vikram Reddy,mumbai,West,Electronics,Headphones,44,3424.58,,14.6,,Vikram,UPI
+10105,04-22-2024,Vikram Reddy,Mumbai,South,Groceries,Dal,50,772.45,,7.67,,Sneha,UPI
+10106,01-04-2024,Divya Nair,Chennai,South,Furniture,Shelf,46,1227.54,,16.76,,Sneha,UPI
+10107,2024-07-22,Rajesh Kumar,Chennai,West,Electronics,Headphones,37,2203.49,,12.13,,Arjun,Debit Card
+10108,02-28-2024,Rajesh Kumar,Bangalore,West,Groceries,Rice,28,4237.97,,7.3,,Arjun,NetBanking
+10001,23/11/2024,Rajesh Kumar,pune,South,Clothing,Jeans,48,602.23,28907.04,16.36,4835.57,Arjun,UPI
+10002,16/01/2024,Priya Singh,DELHI,North,Books,Text Book,46,3284.43,151083.78,6.61,28219.43,Vikram,UPI
+10003,23/01/2025,Divya Nair,chennai,East,Clothing,Jeans,49,1749.31,"85,716",2.9,16646.05,Sneha,NetBanking
+10004,15/05/2024,Divya Nair,CHENNAI,North,Furniture,Chair,36,1536.57,55316.52,26.56,8124.89,Sneha,NetBanking
+10109,02-10-2024,Test Customer,Mumbai,North,Electronics,Laptop,1,999999,999999,0,199999.8,Rajesh,Cash
+10110,2024-06-07,Bad Sale,Delhi,East,Groceries,Rice,100,-5,-500,50,-250,Priya,UPI
+10111,22/06/2024,Amit Patel,Delhi,North,Books,Self Help,13,4539.02,59007.26000000001,21.82,9226.38,Amit,Credit Card
+10112,22/02/2024,Amit Patel,Delhi,South,Electronics,Phone,50,3176.95,158847.5,16.91,26397.28,Divya,NetBanking
+10113,2024-11-25,Vikram Reddy,BANGALORE,East,Clothing,Kurta,5,2397.71,11988.55,23.89,1824.9,Rajesh,Debit Card
+10114,16/09/2024,Amit Patel,chennai,North,Electronics,Headphones,19,475.98,9043.62,25.66,1344.61,Arjun,Cash
+10115,2024-10-24,Arjun Verma,Pune,West,Books,Text Book,21,3064.53,64355.130000000005,28.73,9173.18,Divya,UPI
+10116,2024-06-24,Rajesh Kumar,HYDERABAD,South,Electronics,Phone,46,2245.02,103270.92,15.68,17415.61,Amit,Debit Card
