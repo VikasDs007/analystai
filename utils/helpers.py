@@ -20,6 +20,7 @@ def get_groq_client():
 
 
 def _get_groq_api_key():
+    # Prefer Groq keys for compatibility.
     secret_keys = ("GROQ_API_KEY", "GROQ_KEY")
 
     try:

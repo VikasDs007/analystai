@@ -59,7 +59,7 @@ def get_col_types(df):
     """Return (numeric_cols, categorical_cols, date_cols)."""
     numeric = [c for c in df.select_dtypes(include=[np.number]).columns
                if not is_identifier_col(c)]
-    categorical = [c for c in df.select_dtypes(include=["object"]).columns
+    categorical = [c for c in df.select_dtypes(include=["object", "string"]).columns
                    if df[c].nunique() <= 20 and not is_identifier_col(c)]
     date_cols = []
     for col in df.columns:

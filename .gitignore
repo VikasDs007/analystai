@@ -3,3 +3,25 @@
 __pycache__/
 *.pyc
 .DS_Store
+
+# App runtime cache/state artifacts
+.analystai_last_*.csv
+.analystai_last_*.json
+.analystai_onboarded
+
+# Avoid accidentally staging tool packages from the local source env
+source/bin/py.test
+source/bin/pytest
+source/bin/pygmentize
+source/lib/python*/site-packages/_pytest/
+source/lib/python*/site-packages/iniconfig/
+source/lib/python*/site-packages/iniconfig-*.dist-info/
+source/lib/python*/site-packages/pluggy/
+source/lib/python*/site-packages/pluggy-*.dist-info/
+source/lib/python*/site-packages/py.py
+source/lib/python*/site-packages/pygments/
+source/lib/python*/site-packages/pygments-*.dist-info/
+source/lib/python*/site-packages/pytest/
+source/lib/python*/site-packages/pytest-*.dist-info/
+source/lib/python*/site-packages/tomli/
+source/lib/python*/site-packages/tomli-*.dist-info/

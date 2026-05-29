@@ -8,7 +8,7 @@ from utils.helpers import get_groq_client, build_data_context, groq_json_decisio
 
 
 def run_insight_generator(df, understanding: str) -> str:
-    """Return a markdown string with 5 business insights."""
+    """Return a markdown string with 3 concise business insights."""
     context = build_data_context(df, understanding)
 
     insight_plan = groq_json_decision(
@@ -45,24 +45,23 @@ Choose only focus areas that are strongly grounded in the supplied data context.
             {
                 "role": "system",
                 "content": (
-                    "You are a business advisor talking to a small business owner. "
-                    "Using the data summary below, find exactly 5 clear insights.\n\n"
+                    "You are a business analyst writing a short quick-insights panel. "
+                    "Using the data summary below, find exactly 3 concise signals.\n\n"
                     f"Plan validation:\n{plan_text}\n\n"
                     "For each insight:\n"
-                    "- Start with a specific number or percentage from the data\n"
-                    "- Explain what it MEANS for the business in plain English\n"
-                    "- Suggest one concrete action to take\n\n"
-                    "Format each insight as:\n"
-                    "💡 **[Bold one-line finding with a number]**\n"
-                    "[2 sentences: what it means + what to do]\n\n"
+                    "- Start with a number, percentage, or clear pattern from the data\n"
+                    "- Explain the signal and why it matters in plain English\n"
+                    "- Do not include a full action plan; keep it short and different from the report\n\n"
+                    "Format each insight as a single bullet:\n"
+                    "- 💡 **[Short headline with a number]** — [one sentence explaining the signal]\n\n"
                     "Rules: No jargon. No technical terms. "
                     "Write for someone who has never seen a spreadsheet. "
-                    "Max 400 words total."
+                    "Do not repeat the report wording. Max 220 words total."
                 ),
             },
             {"role": "user", "content": context},
         ],
-        max_tokens=800,
+        max_tokens=500,
         temperature=0.5,
     )
     return resp.choices[0].message.content.strip()

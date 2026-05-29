@@ -1,6 +1,6 @@
 # AnalystAI
 
-A multi-agent AI-powered data analysis platform built with Streamlit and Groq.
+A multi-agent AI-powered data analysis platform built with Streamlit. Created by OpenAI Codex.
 
 ## Project Structure
 
@@ -33,9 +33,9 @@ analystai/
    pip install -r requirements.txt
    ```
 
-2. **Configure Groq API key:**
+2. **Configure API key (if required):**
    - Open `.streamlit/secrets.toml`
-   - Set `GROQ_API_KEY` to your Groq API key, or keep `GROQ_KEY` for backward compatibility
+   - Set an appropriate API key for your chosen backend if required (e.g., Groq).
 
 3. **Run the application:**
    ```bash
@@ -61,7 +61,7 @@ analystai/
 
 - Python 3.9+
 - Streamlit 1.28+
-- Groq API key
+- API key (optional)
 
 ## License
 
