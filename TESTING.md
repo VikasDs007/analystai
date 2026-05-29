@@ -18,8 +18,8 @@ analystai/
 │   ├── detective.py            ✅ Data profiler & issue detector
 │   ├── cleaner.py              ✅ Data quality fixer
 │   ├── chart_selector.py       ✅ Visualization builder
-│   ├── insight_generator.py    ✅ AI insights (Groq)
-│   └── storyteller.py          ✅ Report & Q&A (Groq)
+│   ├── insight_generator.py    ✅ AI insights (OpenAI Codex)
+│   └── storyteller.py          ✅ Report & Q&A (OpenAI Codex)
 ├── utils/
 │   ├── __init__.py             ✅
 │   └── helpers.py              ✅
@@ -74,13 +74,13 @@ analystai/
   4. 📉 Histogram (Distribution)
   5. 🔵 Scatter plot (Relationships)
 
-#### Step 4: Insight Generator Agent
-- ✅ Integrated with Groq LLM (API key required)
+-#### Step 4: Insight Generator Agent
+- ✅ Integrated with OpenAI Codex LLM (API key required)
 - ✅ Fallback message ready if API unavailable
 - Ready to generate 5 key business insights
 
-#### Step 5: Storyteller Agent
-- ✅ Integrated with Groq LLM (API key required)
+-#### Step 5: Storyteller Agent
+- ✅ Integrated with OpenAI Codex LLM (API key required)
 - ✅ Generates formatted business reports
 - ✅ Q&A handler for user questions
 - ✅ Fallback messages implemented
@@ -130,11 +130,12 @@ The test CSV (`sample_data/sample_sales.csv`) contains intentional data quality 
 
 ### Prerequisites
 1. Python 3.9+
-2. Groq API key (optional but recommended)
+2. OpenAI Codex API key (optional but recommended)
 
-### Step 1: Add Groq API Key
+### Step 1: Add OpenAI Codex API Key
 Edit `.streamlit/secrets.toml`:
 ```toml
+# The app reads the key from `GROQ_KEY` in `.streamlit/secrets.toml`.
 GROQ_KEY = "your_actual_groq_key_here"
 ```
 
@@ -236,10 +237,10 @@ pip install plotly>=5.15.0
 
 ## 📝 Notes
 
-1. **Groq API**: Optional but recommended for AI features
+1. **OpenAI Codex**: Optional but recommended for AI features
 2. **Data Formats**: Supports CSV files with any structure
 3. **Performance**: Fast on datasets up to 100K rows
-4. **Security**: Groq key stored in git-ignored file
+4. **Security**: OpenAI Codex key stored in git-ignored file
 5. **Theme**: Customizable via `.streamlit/config.toml`
 
 ---
