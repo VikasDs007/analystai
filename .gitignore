@@ -3,6 +3,11 @@
 __pycache__/
 *.pyc
 .DS_Store
+.pytest_cache/
+.venv/
+source/
+logs/
+tmp_*.pdf
 
 # App runtime cache/state artifacts
 .analystai_last_*.csv
