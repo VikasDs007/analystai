@@ -1,17 +1,17 @@
-"""Insight generator agent — produces 5 business insights using Groq LLM."""
+"""Insight generator agent — produces business insights via OpenAI."""
 
 import sys
 import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils.helpers import get_groq_client, build_data_context, groq_json_decision
+from utils.helpers import get_llm_client, build_data_context, llm_json_decision
 
 
-def run_insight_generator(df, understanding: str) -> str:
+def run_insight_generator(df, understanding: str, use_llm=True) -> str:
     """Return a markdown string with 3 concise business insights."""
     context = build_data_context(df, understanding)
 
-    insight_plan = groq_json_decision(
+    insight_plan = llm_json_decision(
         """
 You are a cautious insight planner.
 Return only valid JSON with these keys:
@@ -38,9 +38,12 @@ Choose only focus areas that are strongly grounded in the supplied data context.
             f"Guardrails: {', '.join(guardrails) if guardrails else 'N/A'}"
         )
 
-    client = get_groq_client()
+    try:
+        client = get_llm_client()
+    except Exception as exc:
+        return f"(AI unavailable: {exc})"
+
     resp = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
         messages=[
             {
                 "role": "system",

@@ -6,7 +6,7 @@ import sys
 import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils.helpers import get_groq_client, groq_json_decision
+from utils.helpers import get_llm_client, llm_json_decision
 
 
 # ── Profiling ─────────────────────────────────────────────────────────────────
@@ -113,7 +113,16 @@ def detect_issues(df):
 
 # ── Main entry point ──────────────────────────────────────────────────────────
 
-def run_detective(df):
+def _quick_understanding(profile):
+    return (
+        f"This dataset has {profile['rows']:,} rows and {profile['columns']} columns "
+        f"with about {profile['missing_pct']}% missing values and "
+        f"{profile['duplicate_rows']} duplicate rows. "
+        "Use Full analysis mode for a richer AI-written summary."
+    )
+
+
+def run_detective(df, use_llm=True):
     profile = profile_dataframe(df)
     issues = detect_issues(df)
 
@@ -139,9 +148,8 @@ def run_detective(df):
     )
 
     try:
-        client = get_groq_client()
+        client = get_llm_client()
         resp = client.chat.completions.create(
-            model="llama-3.1-8b-instant",
             messages=[
                 {
                     "role": "system",
@@ -170,7 +178,7 @@ def run_detective(df):
             f" (Note: AI description unavailable — {exc})"
         )
 
-    decision_summary = groq_json_decision(
+    decision_summary = llm_json_decision(
         """
 You are a cautious data-quality reviewer.
 Return only valid JSON with these keys:

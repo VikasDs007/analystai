@@ -1,0 +1,1 @@
+"""AnalystAI Streamlit application package."""

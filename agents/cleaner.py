@@ -6,10 +6,10 @@ import pandas as pd
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils.helpers import groq_json_decision
+from utils.helpers import llm_json_decision
 
 
-def run_cleaner(df, issues):
+def run_cleaner(df, issues, use_llm=True):
     """Apply fixes for each detected issue.
 
     Returns (cleaned_df, report_lines).
@@ -18,7 +18,7 @@ def run_cleaner(df, issues):
     report = []
     seen = set()  # prevent double-processing same issue type
 
-    cleaning_plan = groq_json_decision(
+    cleaning_plan = llm_json_decision(
         """
 You are a cautious data-cleaning planner.
 Return only valid JSON with these keys:

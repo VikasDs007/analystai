@@ -1,6 +1,7 @@
 import pandas as pd
 
 from agents.chart_selector import get_anomalies, get_col_types, render_chart
+from agents.chat_box import handle_question
 
 
 def _sample_df():
@@ -66,3 +67,25 @@ def test_get_anomalies_returns_list():
 	assert any(
 		{"profit", "returns"} == {a[0], a[1]} for a in anomalies
 	)
+
+
+def test_local_qa_top_n_by_category_prefers_grouped_answer():
+	df = pd.DataFrame(
+		{
+			"Region": ["North", "South", "West", "North", "West", "East"],
+			"Revenue": [1200, 900, 1500, 800, 1400, 700],
+		}
+	)
+	answer = handle_question(
+		df,
+		understanding="Regional revenue dataset",
+		insights="",
+		question="Top 5 regions by sales",
+		stream=False,
+		use_llm=False,
+	)
+
+	assert isinstance(answer, str)
+	assert "Top 5" in answer
+	assert "Highest" not in answer
+	assert "Region" in answer or "region" in answer
