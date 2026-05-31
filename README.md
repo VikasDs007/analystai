@@ -2,6 +2,8 @@
 
 **Upload a CSV. Get a full business analysis in 30 seconds.**
 
+Live demo: https://analystai.streamlit.app/
+
 AnalystAI is a multi-agent AI-powered data analysis platform built with Streamlit and powered by OpenAI via OpenRouter. Created for the OpenAI Hackathon.
 
 AI cleans your data, picks the best charts, writes a business report, and answers plain-English questions — no code needed.
