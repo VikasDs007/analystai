@@ -102,6 +102,30 @@ The plan must be conservative and based only on the provided issues.
             df_clean[col] = df_clean[col].str.strip().str.title()
             report.append(f"✅ Standardized text casing in '{col}'")
 
+        # ── Date Normalization ────────────────────────────────────────────────
+        elif itype == "date_normalization" and col in df_clean.columns:
+            try:
+                parsed = pd.to_datetime(df_clean[col], errors="coerce", format="mixed")
+                if parsed.isnull().all():
+                    parsed = pd.to_datetime(df_clean[col], errors="coerce")
+                if parsed.notna().any():
+                    non_null_parsed = parsed.dropna()
+                    has_time = (non_null_parsed.dt.hour != 0).any() | (non_null_parsed.dt.minute != 0).any()
+                    if has_time:
+                        df_clean[col] = parsed.dt.strftime("%Y-%m-%d %H:%M:%S")
+                    else:
+                        df_clean[col] = parsed.dt.strftime("%Y-%m-%d")
+                    # Replace Strftime 'NaT' representation back to NaN
+                    df_clean[col] = df_clean[col].where(parsed.notnull(), np.nan)
+                    report.append(f"✅ Normalized date formatting in '{col}' to YYYY-MM-DD standard")
+            except Exception as e:
+                report.append(f"⚠️ Failed to normalize dates in '{col}': {str(e)}")
+
+        # ── Unnamed or Empty Columns ──────────────────────────────────────────
+        elif itype == "unnamed_or_empty_column" and col in df_clean.columns:
+            df_clean = df_clean.drop(columns=[col])
+            report.append(f"✅ Dropped empty or unnamed column '{col}'")
+
     # ── Auto-convert currency-formatted text columns to numeric ───────────────
     # Only attempt on columns that are still object dtype after the above fixes
     for col in df_clean.select_dtypes(include=["object"]).columns:

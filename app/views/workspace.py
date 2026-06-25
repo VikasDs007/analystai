@@ -170,6 +170,9 @@ def render_workspace(df):
 
     tab = get_workspace_tab()
 
+    # Page transition wrapper
+    st.markdown('<div class="tab-content-enter">', unsafe_allow_html=True)
+
     # Ask tab gets full width with the QA panel front and centre
     if tab == "ask":
         render_workspace_stepper()
@@ -186,7 +189,8 @@ def render_workspace(df):
         elif tab == "report":
             render_report_tab(df_view, understanding, kpis, cleaning_report)
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)  # Close tab-content-enter
+    st.markdown("</div>", unsafe_allow_html=True)  # Close workspace-layout
 
     provider_name = get_llm_provider_name()
     footer_label = f"Powered by {provider_name}" if provider_name else "AI-assisted analysis"

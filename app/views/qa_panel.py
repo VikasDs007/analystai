@@ -43,7 +43,7 @@ def render_qa_panel(df_view, understanding, insights):
         pass
     if suggestions:
         for i, q in enumerate(suggestions[:4]):
-            if st.button(q, key=f"ask_suggest_{i}", use_container_width=True):
+            if st.button(q, key=f"ask_suggest_{i}", width="stretch"):
                 _run_question(df_view, understanding, insights, q)
 
     # Render last messages from session history using Streamlit chat primitives
@@ -147,7 +147,7 @@ def render_qa_panel(df_view, understanding, insights):
         pass
     col1, col2 = st.columns([3,1])
     with col1:
-        if st.button("Ask →", key="qa_submit_button", use_container_width=True, type="primary", disabled=disabled_input):
+        if st.button("Ask →", key="qa_submit_button", width="stretch", type="primary", disabled=disabled_input):
             submitted = True
 
     # Accept Enter key in text_input: streamlit triggers on_change, but we handle submit via button only.
@@ -169,7 +169,7 @@ def render_qa_panel(df_view, understanding, insights):
     st.markdown('</div>', unsafe_allow_html=True)
 
     if st.session_state.qa_history:
-        if st.button("Clear chat", key="qa_clear", use_container_width=True):
+        if st.button("Clear chat", key="qa_clear", width="stretch"):
             st.session_state.qa_history = []
             try_rerun()
 

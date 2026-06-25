@@ -45,6 +45,25 @@ def profile_dataframe(df):
 
 # ── Issue detection ───────────────────────────────────────────────────────────
 
+def _looks_like_date_col(col):
+    name = str(col).lower()
+    return "date" in name or "time" in name or name.endswith("_at")
+
+
+def _parse_dates(series):
+    for kwargs in [
+        {"format": "mixed", "dayfirst": True},
+        {"dayfirst": True},
+    ]:
+        try:
+            parsed = pd.to_datetime(series, errors="coerce", **kwargs)
+            if parsed.notna().mean() > 0.7:
+                return parsed
+        except Exception:
+            pass
+    return None
+
+
 def detect_issues(df):
     issues = []
 
@@ -107,6 +126,34 @@ def detect_issues(df):
                     "severity": "🟢 Low",
                     "fix": "Standardize casing / whitespace",
                 })
+
+    # Unnamed or entirely empty columns
+    for col in df.columns:
+        if "unnamed" in str(col).lower() or df[col].isnull().all():
+            issues.append({
+                "type": "unnamed_or_empty_column",
+                "column": col,
+                "count": len(df),
+                "pct": 100.0,
+                "severity": "🟢 Low" if df[col].isnull().all() else "🟡 Medium",
+                "fix": "Drop entirely empty or unnamed column",
+            })
+
+    # Date normalization (date represented as text that needs standard formatting)
+    for col in df.select_dtypes(include=["object"]).columns:
+        if _looks_like_date_col(col):
+            vals = df[col].dropna()
+            if len(vals) > 0:
+                parsed = _parse_dates(vals.head(30))
+                if parsed is not None:
+                    issues.append({
+                        "type": "date_normalization",
+                        "column": col,
+                        "count": len(vals),
+                        "pct": round(len(vals) / len(df) * 100, 1),
+                        "severity": "🟡 Medium",
+                        "fix": "Normalize date formatting to YYYY-MM-DD",
+                    })
 
     return issues
 

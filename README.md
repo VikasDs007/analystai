@@ -1,6 +1,6 @@
 # AnalystAI
 
-**Upload a CSV. Get a full business analysis in 30 seconds.**
+**Upload a CSV, Excel or JSON file. Get a full business analysis in 30 seconds.**
 
 Live demo: https://analystai.streamlit.app/
 
@@ -14,11 +14,11 @@ AI cleans your data, picks the best charts, writes a business report, and answer
 
 | Step | What happens |
 |------|-------------|
-| **1. Upload** | Drop any CSV (sales, inventory, surveys, finance) up to 10 MB |
-| **2. Profile & Clean** | AI detects missing values, duplicates, outliers and inconsistent text — you choose which issues to fix |
-| **3. Explore** | AI-selected charts, auto-computed KPIs, anomaly detection |
-| **4. Report** | AI writes a structured business report with insights and next steps |
-| **5. Ask** | Ask any question in plain English and get a data-backed answer |
+| **1. Upload** | Drop any flat table: CSV, Excel (.xlsx) or JSON up to 10 MB |
+| **2. Profile & Clean** | AI detects missing values, duplicates, outliers, inconsistent text, invalid date formats, and empty index columns — you choose which issues to clean |
+| **3. Explore** | AI-selected charts, auto-computed KPIs, anomaly detection, and custom Chart Studio |
+| **4. Report** | AI writes a structured business report (downloadable as MD, PDF or DOCX) with insights and next steps |
+| **5. Ask** | Ask any question in plain English and get a data-backed answer with citations |
 
 ---
 
@@ -31,16 +31,16 @@ AI cleans your data, picks the best charts, writes a business report, and answer
 - Social proof bar (hackathon context, privacy note)
 
 ### Data profiling & cleaning
-- Skeleton loading screen while AI analyses data
+- Skeleton loading screen while AI analyses data (dynamic light/dark shimmer states)
 - Per-issue checkboxes — choose exactly which issues to fix
 - Structured cleaning results card showing before/after metrics
-- Full cleaning diff with imputed values and removed rows
+- Full cleaning diff with imputed values, removed rows, normalized dates, and dropped empty/unnamed columns
 
 ### Workspace tabs
 - **Overview** — KPI cards with data-aware sub-labels, top issues, anomaly alerts with "Ask AI" buttons, next-steps guidance
 - **Data quality** — Modern column profile table (alternating rows, red highlight for high missing %), severity-coloured issue rows, cleaning summary checklist
 - **Charts** — AI-selected charts with skeleton loading, 📌 pin to dashboard, data-aware insight cards, suggested next steps per chart, Chart Studio for custom charts
-- **Report** — AI-generated business report with quick insights panel, downloadable as `.md`
+- **Report** — AI-generated business report with quick insights panel, downloadable as `.md`, `.pdf`, and `.docx`
 - **Ask** — Full-width Q&A panel, streaming answers, chat history, "Why this answer" explainer
 
 ### Session persistence

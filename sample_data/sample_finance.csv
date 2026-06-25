@@ -1,0 +1,31 @@
+transaction_id,date,account_type,category,description,amount,balance,branch,status
+TXN001,2024-01-15,Checking,Food & Dining,Grocery Store,85.50,4214.50,Downtown,Completed
+TXN002,2024-01-16,Savings,Transfer,Internal Transfer,500.00,5500.00,Online,Completed
+TXN003,2024-01-17,Checking,Utilities,Electric Bill,120.75,4093.75,Downtown,Completed
+TXN004,2024-01-18,Checking,Transport,Gas Station,45.00,4048.75,Uptown,Completed
+TXN005,2024-01-19,Credit Card,Shopping,Amazon Purchase,299.99,-299.99,Online,Pending
+TXN006,2024-01-20,Checking,Food & Dining,Restaurant,67.30,3981.45,Downtown,Completed
+TXN007,2024-01-21,Savings,Investment,Mutual Fund SIP,1000.00,4500.00,Online,Completed
+TXN008,2024-01-22,Checking,Healthcare,Pharmacy,32.50,3948.95,Uptown,Completed
+TXN009,2024-01-23,Credit Card,Travel,Flight Booking,450.00,-749.99,Online,Completed
+TXN010,2024-01-24,Checking,Utilities,Internet Bill,59.99,3888.96,Downtown,Completed
+TXN011,2024-01-25,Checking,Food & Dining,Coffee Shop,12.50,3876.46,Uptown,Completed
+TXN012,2024-01-26,Savings,Transfer,Savings Deposit,200.00,4700.00,Online,Completed
+TXN013,2024-01-27,Checking,Entertainment,Movie Tickets,28.00,3848.46,Downtown,Completed
+TXN014,2024-01-28,Credit Card,Shopping,Clothing Store,150.00,-899.99,Online,Completed
+TXN015,2024-01-29,Checking,Transport,Uber Ride,22.50,3825.96,Uptown,Completed
+TXN016,2024-01-30,Checking,Food & Dining,Grocery Store,95.20,3730.76,Downtown,Completed
+TXN017,2024-02-01,Savings,Investment,Stock Purchase,750.00,3950.00,Online,Completed
+TXN018,2024-02-02,Checking,Utilities,Water Bill,45.00,3685.76,Downtown,Completed
+TXN019,2024-02-03,Credit Card,Food & Dining,Food Delivery,35.80,-935.79,Online,Completed
+TXN020,2024-02-04,Checking,Healthcare,Doctor Visit,150.00,3535.76,Uptown,Completed
+TXN021,2024-02-05,Checking,Transport,Parking Fee,15.00,3520.76,Downtown,Completed
+TXN022,2024-02-06,Savings,Transfer,EMI Payment,2500.00,2200.00,Online,Completed
+TXN023,2024-02-07,Checking,Food & Dining,Grocery Store,78.90,3441.86,Uptown,Completed
+TXN024,2024-02-08,Credit Card,Electronics,Phone Purchase,699.99,-1635.78,Online,Completed
+TXN025,2024-02-09,Checking,Utilities,Gas Bill,38.50,3403.36,Downtown,Completed
+TXN026,2024-02-10,Checking,Entertainment,Concert Tickets,85.00,3318.36,Uptown,Completed
+TXN027,2024-02-11,Savings,Investment,Fixed Deposit,1500.00,700.00,Online,Completed
+TXN028,2024-02-12,Checking,Food & Dining,Restaurant,110.00,3208.36,Downtown,Completed
+TXN029,2024-02-13,Credit Card,Travel,Hotel Booking,320.00,-1955.78,Online,Pending
+TXN030,2024-02-14,Checking,Healthcare,Lab Test,85.00,3123.36,Uptown,Completed

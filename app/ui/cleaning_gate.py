@@ -9,6 +9,7 @@ from app.config import CACHE_CLEAN_CSV
 from app.state.cache import save_cached_pipeline_state
 from app.ui.cleaning_diff import compute_cleaning_diff, render_cleaning_diff
 from app.ui.layout import try_rerun, render_skeleton
+from utils.helpers import safe_agent_call
 
 
 def _issue_severity_rank(issue):
@@ -116,12 +117,12 @@ def render_review_gate(df, detective_result):
     b1, b2, b3 = st.columns([2, 2, 1])
     with b1:
         btn_label = f"🧹 Clean selected ({len(selected_keys)} issues)" if issues else "✅ Continue"
-        if st.button(btn_label, type="primary", use_container_width=True, key="gate_auto_clean"):
+        if st.button(btn_label, type="primary", width="stretch", key="gate_auto_clean"):
             selected_issues = [ranked[i] for i in selected_keys] if issues else []
             _apply_auto_clean(df, selected_issues)
             try_rerun()
     with b2:
-        if st.button("⏭ Skip cleaning — use raw data", use_container_width=True, key="gate_skip_clean"):
+        if st.button("⏭ Skip cleaning — use raw data", width="stretch", key="gate_skip_clean"):
             _apply_skip_clean(df)
             try_rerun()
     with b3:
@@ -130,14 +131,19 @@ def render_review_gate(df, detective_result):
             data=df.to_csv(index=False).encode("utf-8"),
             file_name="raw_data.csv",
             mime="text/csv",
-            use_container_width=True,
+            width="stretch",
             key="gate_download_raw",
         )
 
 
 def _apply_auto_clean(df, issues):
     render_skeleton("Cleaning selected issues…", rows=3)
-    df_clean, cleaning_report = run_cleaner(df, issues, use_llm=True)
+    result = safe_agent_call(
+        run_cleaner, df, issues,
+        fallback=(df.copy(), ["⚠️ Cleaning agent failed — using raw data."]),
+        agent_name="cleaner",
+    )
+    df_clean, cleaning_report = result
     st.session_state.df_clean = df_clean
     st.session_state.cleaning_report = cleaning_report
     st.session_state.cleaning_decision = "auto"

@@ -115,11 +115,11 @@ def render_cleaning_diff(diff):
         sample_removed = diff.get("sample_removed")
         if isinstance(sample_removed, pd.DataFrame) and not sample_removed.empty:
             st.caption("Rows removed (sample)")
-            st.dataframe(sample_removed, use_container_width=True, height=180)
+            st.dataframe(sample_removed, width="stretch", height=180)
         else:
             st.caption("No duplicate rows were removed.")
 
         sample_imputed = diff.get("sample_imputed")
         if isinstance(sample_imputed, pd.DataFrame) and not sample_imputed.empty:
             st.caption("Imputed values (sample)")
-            st.dataframe(sample_imputed, use_container_width=True, height=180)
+            st.dataframe(sample_imputed, width="stretch", height=180)

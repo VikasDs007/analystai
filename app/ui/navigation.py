@@ -30,7 +30,7 @@ def render_workspace_stepper():
             if st.button(
                 label,
                 key=f"stepper_{key}",
-                use_container_width=True,
+                width="stretch",
                 type=btn_type,
             ):
                 set_workspace_tab(key)

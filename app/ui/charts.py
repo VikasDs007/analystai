@@ -238,7 +238,7 @@ def render_ai_chart_card(chart, chart_index, df_source, all_columns):
     # ── Chart ─────────────────────────────────────────────────────────────────
     st.plotly_chart(
         chart["fig"],
-        use_container_width=True,
+        width="stretch",
         config={
             "displayModeBar": True,
             "displaylogo": False,
@@ -267,7 +267,7 @@ def render_ai_chart_card(chart, chart_index, df_source, all_columns):
             "🔖" if pinned else "📌",
             key=f"pin_{chart_index}",
             help="Unpin from dashboard" if pinned else "Pin to dashboard",
-            use_container_width=True,
+            width="stretch",
         ):
             if pinned:
                 st.session_state["pinned_charts"] = [
@@ -330,19 +330,19 @@ def render_ai_chart_card(chart, chart_index, df_source, all_columns):
 
         c1, c2 = st.columns(2)
         with c1:
-            if st.button("👁 Preview", key=f"preview_btn_{chart_index}", use_container_width=True):
+            if st.button("👁 Preview", key=f"preview_btn_{chart_index}", width="stretch"):
                 tweaked = render_chart(df_source, _apply_tweak(spec, tweak_x, tweak_y))
                 if tweaked:
                     st.plotly_chart(
                         tweaked["fig"],
-                        use_container_width=True,
+                        width="stretch",
                         config={"displaylogo": False},
                         key=f"tweak_preview_{chart_index}",
                     )
                 else:
                     st.caption("Choose valid axes to preview.")
         with c2:
-            if st.button("🔄 Apply changes", key=f"apply_btn_{chart_index}", use_container_width=True, type="primary"):
+            if st.button("🔄 Apply changes", key=f"apply_btn_{chart_index}", width="stretch", type="primary"):
                 result = render_chart(df_source, _apply_tweak(spec, tweak_x, tweak_y))
                 if result:
                     # Replace this chart in the AI charts list in-place

@@ -67,7 +67,7 @@ def render_welcome():
             '</div>',
             unsafe_allow_html=True,
         )
-        st.dataframe(sdf.head(6), use_container_width=True, height=200)
+        st.dataframe(sdf.head(6), width="stretch", height=200)
         st.caption("This is what AnalystAI will analyse — click **▶ Load sample data** above to try it instantly.")
     except Exception:
         pass

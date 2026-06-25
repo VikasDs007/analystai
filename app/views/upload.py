@@ -8,6 +8,12 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 from app.config import CACHE_CSV, SAMPLE_CSV, UPLOAD_CLEAR_KEYS
+
+SAMPLE_DATASETS = {
+    "sample_sales.csv": {"label": "Sales Data", "desc": "120 rows · retail sales", "icon": "📦"},
+    "sample_finance.csv": {"label": "Finance Data", "desc": "30 rows · bank transactions", "icon": "💰"},
+    "sample_hr.csv": {"label": "HR Data", "desc": "30 rows · employee records", "icon": "👥"},
+}
 from app.state.cache import (
     clear_cached_pipeline_state,
     save_cached_pipeline_state,
@@ -49,24 +55,41 @@ def _handle_file_preview(uploaded_file):
         pass
     preview_df = None
     used_encoding = "utf-8"
-    try:
-        preview_df = pd.read_csv(uploaded_file, nrows=PREVIEW_ROWS, encoding="utf-8")
-    except Exception:
+    fname = getattr(uploaded_file, "name", "").lower()
+    if fname.endswith(".xlsx"):
         try:
-            uploaded_file.seek(0)
-            preview_df = pd.read_csv(uploaded_file, nrows=PREVIEW_ROWS, encoding="latin-1")
-            used_encoding = "latin-1"
+            preview_df = pd.read_excel(uploaded_file, nrows=PREVIEW_ROWS)
+            used_encoding = "xlsx-native"
         except Exception as e:
-            st.error(f"Could not read file preview: {e}")
+            st.error(f"Could not read Excel preview: {e}")
             return False
+    elif fname.endswith(".json"):
+        try:
+            preview_df = pd.read_json(uploaded_file)
+            preview_df = preview_df.head(PREVIEW_ROWS)
+            used_encoding = "json-native"
+        except Exception as e:
+            st.error(f"Could not read JSON preview: {e}")
+            return False
+    else:
+        try:
+            preview_df = pd.read_csv(uploaded_file, nrows=PREVIEW_ROWS, encoding="utf-8")
+        except Exception:
+            try:
+                uploaded_file.seek(0)
+                preview_df = pd.read_csv(uploaded_file, nrows=PREVIEW_ROWS, encoding="latin-1")
+                used_encoding = "latin-1"
+            except Exception as e:
+                st.error(f"Could not read file preview: {e}")
+                return False
 
     st.markdown(f"**Preview — first {PREVIEW_ROWS} rows**")
-    st.dataframe(preview_df, use_container_width=True, height=220)
+    st.dataframe(preview_df, width="stretch", height=220)
     st.caption(f"Encoding: {used_encoding} · {len(preview_df):,} rows shown")
 
     c1, c2, c3 = st.columns(3)
     with c1:
-        if st.button("✅ Process full file", type="primary", use_container_width=True, key="btn_process_full"):
+        if st.button("✅ Process full file", type="primary", width="stretch", key="btn_process_full"):
             try:
                 uploaded_file.seek(0)
             except Exception:
@@ -85,7 +108,7 @@ def _handle_file_preview(uploaded_file):
             key="trim_row_count",
             label_visibility="collapsed",
         )
-        if st.button(f"✂️ Trim to {int(trim_n):,} rows", use_container_width=True, key="btn_trim"):
+        if st.button(f"✂️ Trim to {int(trim_n):,} rows", width="stretch", key="btn_trim"):
             try:
                 uploaded_file.seek(0)
             except Exception:
@@ -96,7 +119,7 @@ def _handle_file_preview(uploaded_file):
             st.session_state["upload_trim_n"] = int(trim_n)
             st.session_state["uploaded_file_name"] = getattr(uploaded_file, "name", None)
     with c3:
-        if st.button("✖ Cancel", use_container_width=True, key="btn_cancel"):
+        if st.button("✖ Cancel", width="stretch", key="btn_cancel"):
             if "csv_uploader" in st.session_state:
                 del st.session_state["csv_uploader"]
             st.session_state["upload_confirmed"] = False
@@ -107,6 +130,9 @@ def _handle_file_preview(uploaded_file):
 
 def render_landing_upload_zone():
     """Styled upload zone + prominent sample data CTA for the landing page."""
+
+    # Anchor for CTA button in hero
+    st.markdown('<div id="upload-section"></div>', unsafe_allow_html=True)
 
     # ── Styled upload zone visual header ─────────────────────────────────────
     components.html(
@@ -164,10 +190,10 @@ def render_landing_upload_zone():
     )
 
     uploaded_file = st.file_uploader(
-        "Upload CSV",
-        type=["csv"],
+        "Upload CSV, Excel or JSON",
+        type=["csv", "xlsx", "json"],
         label_visibility="collapsed",
-        help="Upload any CSV file up to 10 MB",
+        help="Upload any CSV, Excel or JSON file up to 10 MB",
         key="csv_uploader",
     )
     st.markdown('<div id="tour-upload" style="height:0px;width:0px;"></div>', unsafe_allow_html=True)
@@ -196,13 +222,20 @@ def render_landing_upload_zone():
             '<div style="display:flex;align-items:center;gap:10px;">'
             '<span style="font-size:1.5rem;">📦</span>'
             '<div>'
-            '<div style="font-weight:700;color:#F1F5F9;font-size:0.9rem;">Sample Sales Dataset</div>'
-            '<div style="color:#94A3B8;font-size:0.78rem;margin-top:2px;">120 rows · 14 columns · retail sales data</div>'
+            '<div style="font-weight:700;color:#F1F5F9;font-size:0.9rem;">Sample Datasets</div>'
+            '<div style="color:#94A3B8;font-size:0.78rem;margin-top:2px;">Choose from 3 demo datasets</div>'
             '</div></div></div>',
             unsafe_allow_html=True,
         )
-        if st.button("▶ Load sample data", use_container_width=True, type="primary", key="sample_btn_landing"):
-            _load_sample_data()
+        sample_choice = st.selectbox(
+            "Sample dataset",
+            list(SAMPLE_DATASETS.keys()),
+            format_func=lambda x: f"{SAMPLE_DATASETS[x]['icon']} {SAMPLE_DATASETS[x]['label']}",
+            key="sample_select_landing",
+            label_visibility="collapsed",
+        )
+        if st.button("▶ Load sample data", width="stretch", type="primary", key="sample_btn_landing"):
+            _load_sample_data(sample_choice)
 
     return uploaded_file
 
@@ -213,10 +246,10 @@ def render_upload_controls():
 
     with up_col:
         uploaded_file = st.file_uploader(
-            "CSV",
-            type=["csv"],
+            "CSV, Excel or JSON",
+            type=["csv", "xlsx", "json"],
             label_visibility="collapsed",
-            help="Upload any CSV file",
+            help="Upload any CSV, Excel or JSON file",
             key="csv_uploader",
         )
         st.markdown('<div id="tour-upload" style="height:0px;width:0px;"></div>', unsafe_allow_html=True)
@@ -249,18 +282,21 @@ def render_upload_controls():
 
     with btn_col:
         if st.button("Sample data", key="sample_btn_workspace"):
-            _load_sample_data()
+            _load_sample_data("sample_sales.csv")
 
     return uploaded_file
 
 
-def _load_sample_data():
-    """Load the sample CSV into session state and navigate to workspace."""
+def _load_sample_data(filename=None):
+    """Load a sample CSV into session state and navigate to workspace."""
     try:
-        df_sample = pd.read_csv(SAMPLE_CSV)
+        if filename is None:
+            filename = "sample_sales.csv"
+        sample_path = os.path.join(os.path.dirname(SAMPLE_CSV), filename)
+        df_sample = pd.read_csv(sample_path)
         st.session_state.df_raw = df_sample
         st.session_state.last_file_id = "sample"
-        st.session_state.last_file_name = "sample_sales.csv"
+        st.session_state.last_file_name = filename
         st.session_state.workspace_tab = "overview"
         st.session_state.cleaning_decision = None
         st.session_state.cleaning_diff = None
@@ -293,11 +329,17 @@ def resolve_dataset(uploaded_file):
 
         try:
             bio = BytesIO(data_bytes)
-            try:
-                df = pd.read_csv(bio, encoding="utf-8")
-            except Exception:
-                bio.seek(0)
-                df = pd.read_csv(bio, encoding="latin-1")
+            file_name = st.session_state.get("uploaded_file_name", "uploaded.csv").lower()
+            if file_name.endswith(".xlsx"):
+                df = pd.read_excel(bio)
+            elif file_name.endswith(".json"):
+                df = pd.read_json(bio)
+            else:
+                try:
+                    df = pd.read_csv(bio, encoding="utf-8")
+                except Exception:
+                    bio.seek(0)
+                    df = pd.read_csv(bio, encoding="latin-1")
 
             if len(df) > MAX_ROWS:
                 if st.session_state.get("upload_trim"):

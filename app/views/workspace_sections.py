@@ -20,7 +20,7 @@ from app.ui.charts import build_chart_explanation, render_ai_chart_card, render_
 from app.ui.layout import progress_bar, render_data_in_use, render_next_steps, render_skeleton, section
 from app.ui.pipeline import count_imputed_values
 from app.ui.report import render_structured_report
-from utils.helpers import col_type_badge, compute_business_kpis, md_to_html
+from utils.helpers import col_type_badge, compute_business_kpis, md_to_html, safe_agent_call
 
 
 def render_overview_tab(df, df_clean, df_view, kpis, profile, understanding, issues, cleaning_report):
@@ -80,7 +80,7 @@ def render_overview_tab(df, df_clean, df_view, kpis, profile, understanding, iss
                 )
             with btn_col:
                 ask_q = f"Why does {c1.replace('_', ' ')} negatively correlate with {c2.replace('_', ' ')}?"
-                if st.button("Ask AI →", key=f"ask_anom_{c1}_{c2}", use_container_width=True):
+                if st.button("Ask AI →", key=f"ask_anom_{c1}_{c2}", width="stretch"):
                     if st.session_state.qa_history is None:
                         st.session_state.qa_history = []
                     st.session_state.qa_history.append({"q": ask_q, "a": "", "cites": [], "plan": None})
@@ -98,7 +98,7 @@ def render_overview_tab(df, df_clean, df_view, kpis, profile, understanding, iss
         f"📋 Raw data — {len(df):,} rows × {len(df.columns)} columns (before cleaning)",
         expanded=False,
     ):
-        st.dataframe(df, use_container_width=True, height=220)
+        st.dataframe(df, width="stretch", height=220)
 
     # ── Next steps — at the bottom once user has context ──────────────────────
     st.markdown("<div style='margin-top:1.5rem;'></div>", unsafe_allow_html=True)
@@ -238,13 +238,13 @@ def render_quality_tab(df, df_clean, profile, issues, cleaning_report, understan
     )
 
     with st.expander("📋 Cleaned data preview", expanded=False):
-        st.dataframe(df_clean, use_container_width=True, height=220)
+        st.dataframe(df_clean, width="stretch", height=220)
         st.download_button(
             "⬇ Download cleaned CSV",
             data=df_clean.to_csv(index=False).encode("utf-8"),
             file_name="cleaned_data.csv",
             mime="text/csv",
-            use_container_width=True,
+            width="stretch",
         )
 
 
@@ -257,7 +257,7 @@ def render_charts_tab(df_view, understanding):
     # ── Toolbar — always at top ───────────────────────────────────────────────
     tb_left, tb_mid, tb_right = st.columns([1, 2, 3])
     with tb_left:
-        if st.button("↺ Regenerate", use_container_width=True):
+        if st.button("↺ Regenerate", width="stretch"):
             st.session_state.charts = None
             st.session_state.cached_chart_specs = None
             st.rerun()
@@ -288,23 +288,16 @@ def render_charts_tab(df_view, understanding):
             # Skeleton loading screen — set charts=[] as safety before building
             st.session_state.charts = []
             render_skeleton("AI is selecting the best charts for your data…", rows=3, show_chart=True)
-            try:
-                built = build_charts(df_view, understanding)
-                st.session_state.charts = built
-                st.session_state.cached_chart_specs = [
-                    c.get("spec") for c in built if c.get("spec")
-                ]
-                save_cached_pipeline_state()
-            except Exception as e:
-                st.session_state.charts = []
-                st.markdown(
-                    f'<div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:10px;'
-                    f'padding:14px 18px;margin:8px 0;">'
-                    f'<div style="font-weight:700;color:#991B1B;margin-bottom:6px;">🔴 Chart generation failed</div>'
-                    f'<div style="color:#7F1D1D;font-size:0.9rem;">{str(e)}</div>'
-                    f'</div>',
-                    unsafe_allow_html=True,
-                )
+            built = safe_agent_call(
+                build_charts, df_view, understanding,
+                fallback=[],
+                agent_name="chart_selector",
+            )
+            st.session_state.charts = built
+            st.session_state.cached_chart_specs = [
+                c.get("spec") for c in built if c.get("spec")
+            ]
+            save_cached_pipeline_state()
             st.rerun()
 
     charts = st.session_state.charts or []
@@ -332,7 +325,7 @@ def render_charts_tab(df_view, understanding):
                     )
                     st.plotly_chart(
                         fig_thumb,
-                        use_container_width=True,
+                        width="stretch",
                         config={"displaylogo": False, "displayModeBar": False},
                         key=f"pinned_{i}",
                     )
@@ -389,7 +382,7 @@ def render_charts_tab(df_view, understanding):
         if ct == "grouped_bar":
             y2_sel = st.selectbox("Y axis 2 (grouped bar only)", axis_opts, index=0)
         chart_title = st.text_input("Chart title", placeholder="e.g. Sales by region")
-        add_btn = st.form_submit_button("➕ Add chart", use_container_width=True, type="primary")
+        add_btn = st.form_submit_button("➕ Add chart", width="stretch", type="primary")
 
     if add_btn:
         x_val    = None if x_sel    == "— none —" else x_sel
@@ -421,7 +414,7 @@ def render_charts_tab(df_view, understanding):
         with col_chart:
             st.plotly_chart(
                 ci["fig"],
-                use_container_width=True,
+                width="stretch",
                 config={"displaylogo": False},
                 key=f"custom_chart_{idx}",
             )
@@ -430,7 +423,7 @@ def render_charts_tab(df_view, understanding):
             st.markdown(f'<p class="chart-desc"><strong>Insight:</strong> {expl}</p>', unsafe_allow_html=True)
             render_possible_actions(ci.get("spec", {}), df=df_view)
         with col_del:
-            if st.button("🗑 Remove", key=f"del_chart_{idx}", use_container_width=True):
+            if st.button("🗑 Remove", key=f"del_chart_{idx}", width="stretch"):
                 st.session_state.custom_charts.pop(idx)
                 st.rerun()
         st.markdown("</div>", unsafe_allow_html=True)
@@ -444,7 +437,7 @@ def render_report_tab(df_view, understanding, kpis, cleaning_report):
 
     tb1, tb2, tb3, tb4 = st.columns([2, 1, 1, 1])
     with tb1:
-        if st.button("↺ Regenerate report", use_container_width=True):
+        if st.button("↺ Regenerate report", width="stretch"):
             st.session_state.report = None
             st.session_state.insights = None
             st.rerun()
@@ -455,7 +448,7 @@ def render_report_tab(df_view, understanding, kpis, cleaning_report):
             data=report_text.encode("utf-8") if report_text else b"",
             file_name="analysis_report.md",
             mime="text/markdown",
-            use_container_width=True,
+            width="stretch",
             disabled=not report_text,
         )
     with tb3:
@@ -465,7 +458,7 @@ def render_report_tab(df_view, understanding, kpis, cleaning_report):
             data=docx_bytes,
             file_name="analysis_report.docx",
             mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            use_container_width=True,
+            width="stretch",
             disabled=not report_text,
         )
     with tb4:
@@ -475,7 +468,7 @@ def render_report_tab(df_view, understanding, kpis, cleaning_report):
             data=pdf_bytes if pdf_bytes else b"",
             file_name="analysis_report.pdf",
             mime="application/pdf",
-            use_container_width=True,
+            width="stretch",
             disabled=not (report_text and pdf_bytes),
             help="PDF export requires weasyprint or xhtml2pdf to be installed" if not pdf_bytes else None,
         )
@@ -503,10 +496,12 @@ def render_report_tab(df_view, understanding, kpis, cleaning_report):
     # ── Generate insights ─────────────────────────────────────────────────────
     if st.session_state.insights is None:
         render_skeleton("Generating insights…", rows=3)
-        try:
-            st.session_state.insights = run_insight_generator(df_view, understanding)
-        except Exception as e:
-            st.session_state.insights = f"Could not generate insights: {e}"
+        result = safe_agent_call(
+            run_insight_generator, df_view, understanding,
+            fallback="(Insights unavailable — LLM call failed. Please try again.)",
+            agent_name="insight_generator",
+        )
+        st.session_state.insights = result
         save_cached_pipeline_state()
         st.rerun()
 
@@ -552,8 +547,8 @@ def render_report_tab(df_view, understanding, kpis, cleaning_report):
     # ── Generate report ───────────────────────────────────────────────────────
     if st.session_state.report is None:
         render_skeleton("Writing business report…", rows=4)
-        try:
-            # Collect streamed chunks into a single string (avoid streaming UI which can show raw HTML)
+
+        def _generate_report():
             gen = run_report_writer(
                 df_view,
                 understanding,
@@ -566,12 +561,19 @@ def render_report_tab(df_view, understanding, kpis, cleaning_report):
             for chunk in gen:
                 if chunk:
                     full_report += chunk
-            st.session_state.report = full_report.strip()
-        except Exception as e:
-            st.session_state.report = (
-                f"## Analysis Complete\n\n**What we found:** {understanding}\n\n"
-                f"**Records:** {len(df_view):,}\n\nReport unavailable: {e}"
-            )
+            return full_report.strip()
+
+        result = safe_agent_call(
+            _generate_report,
+            fallback=(
+                f"## Analysis Complete\n\n"
+                f"**What we found:** {understanding}\n\n"
+                f"**Records:** {len(df_view):,}\n\n"
+                f"*Report generation failed — LLM call timed out or was unavailable.*"
+            ),
+            agent_name="report_writer",
+        )
+        st.session_state.report = result
         save_cached_pipeline_state()
         st.rerun()
 
@@ -619,7 +621,7 @@ def render_report_tab(df_view, understanding, kpis, cleaning_report):
         data=df_view.to_csv(index=False).encode("utf-8"),
         file_name="filtered_data.csv",
         mime="text/csv",
-        use_container_width=False,
+        width="content",
     )
 
 
@@ -637,15 +639,18 @@ def render_ask_tab_hint():
 
 
 def kpis_html(kpis):
-    html = '<div class="kpi-grid">'
+    """Render animated KPI cards using the component system."""
+    from app.ui.components import kpi_card_animated
+    st.markdown('<div class="kpi-grid">', unsafe_allow_html=True)
     for k in kpis:
-        html += f"""<div class="kpi-card {k['color']}">
-            <div class="kpi-lbl">{k['label']}<span class="kpi-ico">{k['icon']}</span></div>
-            <div class="kpi-val">{k['value']}</div>
-            <div class="kpi-sub">{k['sub']}</div>
-        </div>"""
-    html += "</div>"
-    return html
+        kpi_card_animated(
+            k["label"], k["value"],
+            sub=k.get("sub", ""),
+            icon=k.get("icon", ""),
+            color=k.get("color", "kpi-blue"),
+            animate=True,
+        )
+    st.markdown("</div>", unsafe_allow_html=True)
 
 
 def ensure_anomalies(df_clean):

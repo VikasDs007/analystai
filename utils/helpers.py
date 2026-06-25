@@ -517,6 +517,32 @@ def suggest_questions(df):
 
 # ── Data-summary builder ──────────────────────────────────────────────────────
 
+def safe_agent_call(agent_fn, *args, fallback=None, agent_name="agent", **kwargs):
+    """Wrap an agent call with try/except, logging, and a fallback return value.
+
+    Returns the agent result on success, or `fallback` on failure.
+    Errors are logged to Streamlit session state for display in the UI.
+    """
+    import traceback as _tb
+    try:
+        return agent_fn(*args, **kwargs)
+    except Exception as exc:
+        error_info = {
+            "agent": agent_name,
+            "error": str(exc),
+            "traceback": _tb.format_exc(),
+        }
+        # Store the last N errors in session state for UI display
+        errors = []
+        try:
+            errors = list(st.session_state.get("_agent_errors") or [])
+        except Exception:
+            pass
+        errors.append(error_info)
+        st.session_state["_agent_errors"] = errors[-10:]  # keep last 10
+        return fallback
+
+
 def build_data_context(df, understanding=""):
     import numpy as np
 

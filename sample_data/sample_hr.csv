@@ -1,0 +1,31 @@
+employee_id,name,department,role,joining_date,salary,performance_rating,years_experience,location,manager
+EMP001,Amit Patel,Engineering,Software Engineer,2021-03-15,85000,4,5,Mumbai,EMP010
+EMP002,Sneha Reddy,Marketing,Content Specialist,2022-01-10,62000,3,3,Delhi,EMP011
+EMP003,Rahul Kumar,Engineering,Senior Developer,2019-07-22,120000,5,8,Bangalore,EMP010
+EMP004,Priya Sharma,HR,Recruiter,2023-02-01,55000,4,2,Mumbai,EMP012
+EMP005,Vikram Singh,Sales,Account Executive,2020-11-05,72000,3,6,Delhi,EMP013
+EMP006,Ananya Nair,Engineering,QA Engineer,2022-06-18,78000,4,4,Bangalore,EMP010
+EMP007,Deepak Verma,Finance,Analyst,2021-09-30,68000,3,5,Mumbai,EMP014
+EMP008,Kavita Joshi,Marketing,Manager,2018-04-12,95000,5,10,Delhi,EMP011
+EMP009,Suresh Menon,Sales,Senior Executive,2019-01-20,82000,4,7,Chennai,EMP013
+EMP010,Arjun Rao,Engineering,Manager,2017-08-08,140000,5,12,Bangalore,
+EMP011,Neha Gupta,Marketing,Director,2016-05-01,130000,5,14,Delhi,
+EMP012,Rohit Desai,HR,Director,2015-11-15,125000,5,15,Mumbai,
+EMP013,Vinay Kapoor,Sales,Director,2016-02-20,135000,5,13,Delhi,
+EMP014,Meera Iyer,Finance,CFO,2014-06-10,180000,5,18,Mumbai,
+EMP015,Aditya Kulkarni,Engineering,Lead Developer,2020-04-25,105000,4,7,Bangalore,EMP010
+EMP016,Riya Banerjee,Engineering,Software Engineer,2023-05-12,75000,3,2,Bangalore,EMP010
+EMP017,Karthik Subramanian,Sales,Executive,2022-09-01,58000,3,3,Chennai,EMP013
+EMP018,Pooja Chatterjee,Marketing,Specialist,2021-12-10,65000,4,4,Kolkata,EMP011
+EMP019,Nikhil Agarwal,Finance,Senior Analyst,2020-07-15,88000,4,6,Mumbai,EMP014
+EMP020,Sonali Kulkarni,HR,HR Manager,2019-10-20,78000,4,6,Mumbai,EMP012
+EMP021,Tarun Mehta,Engineering,DevOps Engineer,2021-02-28,92000,4,5,Bangalore,EMP010
+EMP022,Shruti Patel,Sales,Manager,2018-08-05,100000,5,9,Delhi,EMP013
+EMP023,Arun Nambiar,Engineering,Software Engineer,2022-04-18,80000,3,4,Bangalore,EMP010
+EMP024,Divya Sundaram,Marketing,Coordinator,2023-07-01,48000,3,1,Chennai,EMP011
+EMP025,Mohan Sharma,Finance,Accountant,2020-11-12,62000,3,5,Mumbai,EMP014
+EMP026,Anjali Reddy,Engineering,Data Scientist,2021-06-20,95000,4,5,Bangalore,EMP010
+EMP027,Prakash Jha,Sales,Executive,2023-01-15,52000,3,2,Patna,EMP013
+EMP028,Lata Menon,HR,Coordinator,2022-03-10,45000,3,3,Mumbai,EMP012
+EMP029,Rajesh Iyer,Engineering,Senior Engineer,2018-11-08,110000,5,9,Bangalore,EMP010
+EMP030,Geeta Deshpande,Finance,Manager,2017-04-25,105000,5,11,Mumbai,EMP014

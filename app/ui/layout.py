@@ -83,9 +83,24 @@ def render_skeleton(label="AI is working…", rows=3, show_chart=False):
     """Render a unified premium skeleton loading screen."""
     import streamlit.components.v1 as components
 
+    is_dark = st.session_state.get("dark_mode", False)
+    bg_base = "#0F172A" if is_dark else "#F8FAFC"
+    border_color = "rgba(75, 85, 99, 0.2)" if is_dark else "#E2E8F0"
+    
+    bg_kpi_1 = "rgba(31, 41, 55, 0.6)" if is_dark else "rgba(248, 250, 252, 0.7)"
+    bg_kpi_2 = "rgba(99, 102, 241, 0.16)" if is_dark else "rgba(99, 102, 241, 0.08)"
+    
+    bg_bar_1 = "rgba(31, 41, 55, 0.6)" if is_dark else "rgba(241, 245, 249, 0.7)"
+    bg_bar_2 = "rgba(55, 65, 81, 0.7)" if is_dark else "rgba(226, 232, 240, 0.8)"
+    
+    bg_chart_1 = "rgba(31, 41, 55, 0.6)" if is_dark else "rgba(248, 250, 252, 0.7)"
+    bg_chart_2 = "rgba(139, 92, 246, 0.16)" if is_dark else "rgba(238, 242, 255, 0.8)"
+    
+    text_color = "#A78BFA" if is_dark else "#6366F1"
+
     chart_block = ""
     if show_chart:
-        chart_block = """
+        chart_block = f"""
         <div class="sk-grid">
           <div class="sk-chart"></div>
           <div class="sk-chart"></div>
@@ -109,10 +124,11 @@ def render_skeleton(label="AI is working…", rows=3, show_chart=False):
             0%   {{ background-position:-800px 0; }}
             100% {{ background-position: 800px 0; }}
           }}
+          body {{ background: transparent; }}
           .sk-wrap  {{ padding:16px 0; }}
-          .sk-label {{ font-size:0.82rem; font-weight:600; color:#6366F1; margin-bottom:14px;
+          .sk-label {{ font-size:0.82rem; font-weight:600; color:{text_color}; margin-bottom:14px;
                        display:flex; align-items:center; gap:8px; }}
-          .sk-dot   {{ width:8px; height:8px; border-radius:50%; background:#6366F1;
+          .sk-dot   {{ width:8px; height:8px; border-radius:50%; background:{text_color};
                        animation:pulse 1.2s ease-in-out infinite; }}
           @keyframes pulse {{
             0%,100% {{ opacity:1; transform:scale(1); }}
@@ -120,24 +136,24 @@ def render_skeleton(label="AI is working…", rows=3, show_chart=False):
           }}
           .sk-kpi-grid {{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }}
           .sk-kpi {{
-            border:1px solid #E2E8F0; border-radius:12px; height:72px;
-            background:linear-gradient(90deg,#F8FAFC 25%,#EEF2FF 50%,#F8FAFC 75%);
+            border:1px solid {border_color}; border-radius:12px; height:72px;
+            background:linear-gradient(90deg, {bg_kpi_1} 25%, {bg_kpi_2} 50%, {bg_kpi_1} 75%);
             background-size:800px 100%; animation:shimmer 1.4s infinite linear;
           }}
           .sk-bar {{
             height:13px; border-radius:7px; margin-bottom:11px;
-            background:linear-gradient(90deg,#F1F5F9 25%,#E2E8F0 50%,#F1F5F9 75%);
+            background:linear-gradient(90deg, {bg_bar_1} 25%, {bg_bar_2} 50%, {bg_bar_1} 75%);
             background-size:800px 100%; animation:shimmer 1.4s infinite linear;
           }}
           .sk-card {{
-            border:1px solid #E2E8F0; border-radius:12px; height:58px; margin-bottom:10px;
-            background:linear-gradient(90deg,#F8FAFC 25%,#F1F5F9 50%,#F8FAFC 75%);
+            border:1px solid {border_color}; border-radius:12px; height:58px; margin-bottom:10px;
+            background:linear-gradient(90deg, {bg_kpi_1} 25%, {bg_bar_1} 50%, {bg_kpi_1} 75%);
             background-size:800px 100%; animation:shimmer 1.4s infinite linear;
           }}
           .sk-grid  {{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }}
           .sk-chart {{
-            border:1px solid #E2E8F0; border-radius:14px; height:200px;
-            background:linear-gradient(90deg,#F8FAFC 25%,#EEF2FF 50%,#F8FAFC 75%);
+            border:1px solid {border_color}; border-radius:14px; height:200px;
+            background:linear-gradient(90deg, {bg_chart_1} 25%, {bg_chart_2} 50%, {bg_chart_1} 75%);
             background-size:800px 100%; animation:shimmer 1.4s infinite linear;
           }}
         </style>

@@ -26,33 +26,41 @@ def render_sidebar():
             unsafe_allow_html=True,
         )
 
-        # AI status chip — always OpenAI, no mode toggle
+        # AI status chip
         ai_err = st.session_state.get("groq_error")
         if ai_err:
             st.markdown(
-                f'<div style="margin:6px 0 8px 0;color:#FCA5A5;font-weight:600;">🔴 AI error: {ai_err}</div>',
+                f'<div style="margin:8px 0; padding:6px 12px; border-radius:8px; background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.3); color:#F87171; font-size:0.8rem; font-weight:600;">🔴 AI error: {ai_err}</div>',
                 unsafe_allow_html=True,
             )
         elif has_api_key():
             st.markdown(
-                '<div style="margin:6px 0 8px 0;color:#BBF7D0;font-weight:600;">🟢 Powered by OpenAI</div>',
+                '<div style="margin:8px 0; padding:6px 12px; border-radius:8px; background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.3); color:#34D399; font-size:0.8rem; font-weight:600;">🟢 Powered by OpenAI</div>',
                 unsafe_allow_html=True,
             )
         else:
             st.markdown(
-                '<div style="margin:6px 0 8px 0;color:#FDE68A;font-weight:600;">🟠 No API key found — add OPEN_ROUTER_KEY to secrets.toml</div>',
+                '<div style="margin:8px 0; padding:6px 12px; border-radius:8px; background:rgba(245,158,11,0.12); border:1px solid rgba(245,158,11,0.3); color:#FBBF24; font-size:0.8rem; font-weight:600;">🟠 API Key check secrets.toml</div>',
                 unsafe_allow_html=True,
             )
 
         st.markdown("---")
 
-        # Workspace navigation removed from the sidebar. Always show pipeline hints.
+        # Workspace navigation
         st.markdown(
-            '<p class="sb-section-label">PIPELINE</p>',
+            '<p class="sb-section-label">PIPELINE STATUS</p>',
             unsafe_allow_html=True,
         )
+        active_tab = st.session_state.get("workspace_tab", "overview")
         for key, label in WORKSPACE_TABS:
-            st.caption(f"· {label}")
+            is_active = active_tab == key
+            cls = "sb-step active" if is_active else "sb-step"
+            dot_color = "var(--primary)" if is_active else "rgba(255,255,255,0.15)"
+            active_indicator = f'<span class="sb-num" style="background:{dot_color}; box-shadow: none;">•</span>'
+            st.markdown(
+                f'<div class="{cls}">{active_indicator}<span class="sb-txt" style="color:{"#FFF !important" if is_active else "#9CA3AF !important"}">{label}</span></div>',
+                unsafe_allow_html=True
+            )
 
         if st.session_state.df_clean is not None:
             st.markdown("---")
@@ -87,43 +95,66 @@ def render_sidebar():
                 unsafe_allow_html=True,
             )
 
-        # Short privacy hint with link to local policy document
+        # Privacy hint
         st.markdown(
-            '<div style="font-size:0.78rem;color:#94A3B8;margin-top:8px;">Data is processed via your configured AI provider; do not upload confidential fields. <a href="/docs/PRIVACY.md">Privacy policy</a></div>',
+            '<div style="font-size:0.78rem;color:#94A3B8;margin-top:8px;">Data is processed via your configured AI provider; do not upload confidential fields.</div>',
             unsafe_allow_html=True,
         )
 
         st.markdown("---")
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button("Restart", use_container_width=True):
-                keys = [
-                    "df_raw", "df_clean", "detective_result", "charts", "insights",
-                    "report", "qa_history", "last_file_name", "filters",
-                    "cached_chart_specs", "workspace_tab",
-                    "cleaning_decision", "cleaning_diff", "filters_dirty",
-                ]
-                for k in keys:
-                    if k in st.session_state:
-                        del st.session_state[k]
-                try_rerun()
-        with col2:
-            report = st.session_state.get("report")
-            df_clean_state = st.session_state.get("df_clean")
-            cached_specs = st.session_state.get("cached_chart_specs")
-            has_artifacts = (
-                (report is not None and report != "")
-                or (df_clean_state is not None)
-                or (cached_specs is not None)
-            )
-            data = create_download_pack_bytes() if has_artifacts else b""
-            st.download_button(
-                "Download pack",
-                data=data,
-                file_name="analystai_pack.zip",
-                disabled=not has_artifacts,
-                use_container_width=True,
-            )
+
+        # Dark mode toggle
+        dark = st.session_state.get("dark_mode", False)
+        if st.button(f"{'☀️ Light' if dark else '🌙 Dark'} mode", width="stretch", key="sidebar_dark"):
+            st.session_state.dark_mode = not dark
+            st.rerun()
+
+        st.markdown("---")
+
+        # Restart with confirmation
+        if st.session_state.get("_confirm_restart"):
+            st.warning("**Restart?** This will clear all data and progress.")
+            c1, c2 = st.columns(2)
+            with c1:
+                if st.button("Yes, restart", type="primary", width="stretch"):
+                    keys = [
+                        "df_raw", "df_clean", "detective_result", "charts", "insights",
+                        "report", "qa_history", "last_file_name", "filters",
+                        "cached_chart_specs", "workspace_tab",
+                        "cleaning_decision", "cleaning_diff", "filters_dirty",
+                        "_confirm_restart",
+                    ]
+                    for k in keys:
+                        if k in st.session_state:
+                            del st.session_state[k]
+                    try_rerun()
+            with c2:
+                if st.button("Cancel", width="stretch"):
+                    st.session_state._confirm_restart = False
+                    st.rerun()
+        else:
+            col1, col2 = st.columns(2)
+            with col1:
+                if st.button("Restart", width="stretch"):
+                    st.session_state._confirm_restart = True
+                    st.rerun()
+            with col2:
+                report = st.session_state.get("report")
+                df_clean_state = st.session_state.get("df_clean")
+                cached_specs = st.session_state.get("cached_chart_specs")
+                has_artifacts = (
+                    (report is not None and report != "")
+                    or (df_clean_state is not None)
+                    or (cached_specs is not None)
+                )
+                data = create_download_pack_bytes() if has_artifacts else b""
+                st.download_button(
+                    "Download pack",
+                    data=data,
+                    file_name="analystai_pack.zip",
+                    disabled=not has_artifacts,
+                    width="stretch",
+                )
 
         with st.expander("Help & onboarding", expanded=False):
             st.markdown(
